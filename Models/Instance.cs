@@ -7,5 +7,9 @@ namespace Itsomax.Module.MonitorManagement.Models
     {
         [MaxLength(100)]
         public string Name { get; set; }
+        [MaxLength(50)]
+        public string IP { get; set; }
+        [MaxLength(100)]
+        public string InstanceName { get; set; }
     }
 }
