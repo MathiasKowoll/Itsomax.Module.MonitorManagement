@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Itsomax.Module.MonitorManagement.Controllers
 {
-    class CreateSystem : Controller
+    class DatabaseManagement : Controller
     {
+        public IActionResult DashBoard()
+        {
+            return View();
+        }
     }
 }
