@@ -2,11 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PreserveCompilationContext>false</PreserveCompilationContext>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\Itsomax.Data.Infrastructure\Itsomax.Data.Infrastructure.csproj" />
     <ProjectReference Include="..\Itsomax.Module.Core\Itsomax.Module.Core.csproj" />
+    <ProjectReference Include="..\..\Libraries\Itsomax.Data.Infrastructure\Itsomax.Data.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
 </Project>

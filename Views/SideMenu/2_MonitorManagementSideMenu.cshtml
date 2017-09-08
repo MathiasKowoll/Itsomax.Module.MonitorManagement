@@ -1,0 +1,17 @@
+﻿@if ((User.HasClaim(c => c.Value.ToString() == "HasAccess" && (c.Type.Contains("Role"))) || User.IsInRole("Admin")))
+{
+    <li class="nav-small-cap">MONITOR MANAGEMENT</li>
+}
+@if ((User.HasClaim(c => c.Value.ToString() == "HasAccess" && (c.Type.Contains("DatabaseManagement"))) || User.IsInRole("Admin")))
+{
+    <li>
+        <a href="#" class="has-arrow waves-effect waves-dark" aria-expanded="false">
+            <i class="mdi mdi-database"></i> <span class="hide-menu">DB Management</span>
+        </a>
+        <ul aria-expanded="false" class="collapse">
+            <li><a href="/DatabaseManagement/CreateSystem">Create System</a></li>
+            <li><a href="/DatabaseManagement/CreateSystem">Create Instance</a></li>
+            <li><a href="/DatabaseManagement/SystemList">List Systems</a></li>
+        </ul>
+    </li>
+}

@@ -19,7 +19,7 @@ build/
 packages/*
 node_modules/
 bower_components/
-wwwroot/lib/
+wwwroot/*
 .vs/
 
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
