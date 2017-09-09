@@ -106,7 +106,7 @@
                                     buttons: {
                                                 confirm: function () {
                                                     $.ajax({
-                                                        url: '/DatabaseManagement/DisableSystem/'+rowData.id,
+                                                        url: '/state/system/'+rowData.id,
                                                         type: 'DELETE',
                                                         success: function (obj) {
                                                             toastr.success('', 'Database system: ' + rowData.name + ' ' + contentConfirm + ' succesfully', { positionClass: 'toast-top-center' });
@@ -169,7 +169,7 @@
                                                 buttons: {
                                                     confirm: function () {
                                                         $.ajax({
-                                                            url: '/DatabaseManagement/DeleteSystem/' + rowData.id,
+                                                            url: '/delete/system/' + rowData.id,
                                                             type: 'DELETE',
                                                             success: function (obj) {
                                                                 table.ajax.reload();

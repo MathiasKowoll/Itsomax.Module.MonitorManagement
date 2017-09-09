@@ -124,5 +124,46 @@ namespace Itsomax.Module.MonitorManagement.Services
                 return false;
             }
         }
+
+        public bool DeleteSystem(long Id,string userName)
+        {
+            try
+            {
+                var deleteSystem = GetSystem(Id);
+                _systemRepository.Remove(deleteSystem);
+                _systemRepository.SaveChange();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorLog(ex.Message, "Delete System", ex.InnerException.Message, userName);
+                return false;
+            }
+        }
+
+        public bool DisableEnableSystem(long Id,string userName)
+        {
+            try
+            {
+                var systemEna = GetSystem(Id);
+                if(systemEna.Active)
+                {
+                    systemEna.Active = false;
+                    _systemRepository.SaveChange();
+                    return true;
+                }
+                else
+                {
+                    systemEna.Active = true;
+                    _systemRepository.SaveChange();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorLog(ex.Message, "Enable/Disable System", ex.InnerException.Message, userName);
+                return false;
+            }
+        }
     }
 }

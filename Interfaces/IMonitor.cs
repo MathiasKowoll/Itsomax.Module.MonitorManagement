@@ -13,5 +13,8 @@ namespace Itsomax.Module.MonitorManagement.Interfaces
         EditSystemViewModel GetSystemForEdit(long Id, string userName);
         DatabaseSystem GetSystem(long Id, string userName);
         DatabaseSystem GetSystem(long Id);
+        bool EditSystem(EditSystemViewModel model, string userName);
+        bool DeleteSystem(long Id, string userName);
+        bool DisableEnableSystem(long Id, string userName);
     }
 }
