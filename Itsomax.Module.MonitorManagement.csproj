@@ -12,6 +12,7 @@
     <ProjectReference Include="..\..\Libraries\Itsomax.Data.Infrastructure\Itsomax.Data.Infrastructure.csproj" />
   </ItemGroup>
 
+
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
