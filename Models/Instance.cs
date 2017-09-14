@@ -24,7 +24,7 @@ namespace Itsomax.Module.MonitorManagement.Models
         [Required]
         public bool Active { get; set; }
         [Required]
-        public long SystemId { get; set; }
-        public DatabaseSystem System { get; set; }
+        public long DatabaseSystemId { get; set; }
+        public DatabaseSystem DatabaseSystem { get; set; }
     }
 }

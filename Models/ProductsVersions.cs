@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Itsomax.Module.MonitorManagement.Models
 {
-    class ProductsVersions
+    public class ProductsVersions
     {
         [Required]
         [MaxLength(100)]
@@ -19,6 +19,7 @@ namespace Itsomax.Module.MonitorManagement.Models
         public int Minor { get; set; }
         [Required]
         public int Patch { get; set; }
+        public long VendorProductsId { get; set; }
 
     }
 }

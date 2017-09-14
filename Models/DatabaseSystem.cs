@@ -12,5 +12,8 @@ namespace Itsomax.Module.MonitorManagement.Models
         public string Description { get; set; }
         [Required]
         public bool Active { get; set; }
+        [Required]
+        public long VendorProductsId { get; set; }
+        public VendorProducts VendorProducts { get; set; }
     }
 }
