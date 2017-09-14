@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Itsomax.Data.Infrastructure.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Itsomax.Module.MonitorManagement.Models
 {
-    public class VendorProducts
+    public class VendorProducts : EntityBase
     {
         [Required]
         [MaxLength(100)]
