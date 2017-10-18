@@ -1,4 +1,4 @@
-﻿@if ((User.HasClaim(c => c.Value.ToString() == "HasAccess" && (c.Type.Contains("Role"))) || User.IsInRole("Admin")))
+﻿@if ((User.HasClaim(c => c.Value.ToString() == "HasAccess" && (c.Type.Contains("MonitorManagement"))) || User.IsInRole("Admin")))
 {
     <li class="nav-small-cap">MONITOR MANAGEMENT</li>
 }

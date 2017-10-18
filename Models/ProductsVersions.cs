@@ -21,6 +21,7 @@ namespace Itsomax.Module.MonitorManagement.Models
         [Required]
         public int Patch { get; set; }
         public long VendorProductsId { get; set; }
+        public VendorProducts VendorProducts { get; set; }
 
     }
 }
