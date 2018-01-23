@@ -1,9 +1,10 @@
-﻿using Itsomax.Data.Infrastructure.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Itsomax.Module.MonitorManagement.Models
+namespace Itsomax.Module.MonitorManagement.ViewModels.DatabaseManagement
 {
-    class Service : EntityBase
+    public class CreateServiceViewModel
     {
         [MaxLength(100)]
         [Required]
@@ -20,11 +21,11 @@ namespace Itsomax.Module.MonitorManagement.Models
         [Required]
         public string LoginName { get; set; }
         [Required]
+        [DataType(DataType.Password)]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         public string LoginPassword { get; set; }
         [Required]
         public bool Active { get; set; }
-        [Required]
-        public long DatabaseSystemId { get; set; }
-        public DatabaseSystem DatabaseSystem { get; set; }
+        public IEnumerable<SelectListItem> SystemList { get; set; }
     }
 }

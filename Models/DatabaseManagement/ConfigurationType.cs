@@ -1,9 +1,9 @@
 ﻿using Itsomax.Data.Infrastructure.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace Itsomax.Module.MonitorManagement.Models
+namespace Itsomax.Module.MonitorManagement.Models.DatabaseManagement
 {
-    class ConfigurationType : EntityBase
+    public class ConfigurationType : EntityBase
     {
         [Required]
         [MaxLength(100)]

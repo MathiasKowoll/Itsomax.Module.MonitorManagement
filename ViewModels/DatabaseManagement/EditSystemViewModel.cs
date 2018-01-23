@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace Itsomax.Module.MonitorManagement.ViewModels
+namespace Itsomax.Module.MonitorManagement.ViewModels.DatabaseManagement
 {
     public class EditSystemViewModel
     {
@@ -16,5 +15,9 @@ namespace Itsomax.Module.MonitorManagement.ViewModels
         public string Description { get; set; }
         [Required]
         public bool Active { get; set; }
+        [Required]
+        public IEnumerable<SelectListItem> VendorList { get; set; }
+        [Required]
+        public IEnumerable<SelectListItem> ConfigTypeList { get; set; }
     }
 }

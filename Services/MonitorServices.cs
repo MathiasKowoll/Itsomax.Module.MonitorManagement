@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Itsomax.Module.MonitorManagement.Models;
-using Itsomax.Module.MonitorManagement.ViewModels;
+using Itsomax.Module.MonitorManagement.Models.DatabaseManagement;
+using Itsomax.Module.MonitorManagement.ViewModels.DatabaseManagement;
 using Itsomax.Data.Infrastructure.Data;
 using Itsomax.Module.Core.Interfaces;
 using System.Linq;

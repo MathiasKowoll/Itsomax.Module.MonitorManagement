@@ -1,11 +1,8 @@
 ﻿using Itsomax.Module.Core.Models;
 using Itsomax.Module.MonitorManagement.Interfaces;
-using Itsomax.Module.MonitorManagement.ViewModels;
+using Itsomax.Module.MonitorManagement.ViewModels.DatabaseManagement;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using NToastNotify;
 using Itsomax.Module.Core.Interfaces;

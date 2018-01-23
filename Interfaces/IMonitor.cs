@@ -1,5 +1,5 @@
-﻿using Itsomax.Module.MonitorManagement.Models;
-using Itsomax.Module.MonitorManagement.ViewModels;
+﻿using Itsomax.Module.MonitorManagement.Models.DatabaseManagement;
+using Itsomax.Module.MonitorManagement.ViewModels.DatabaseManagement;
 using System;
 using System.Collections.Generic;
 using System.Text;

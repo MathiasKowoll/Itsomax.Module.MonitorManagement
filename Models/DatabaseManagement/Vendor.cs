@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Itsomax.Data.Infrastructure.Models;
 
-namespace Itsomax.Module.MonitorManagement.Models
+namespace Itsomax.Module.MonitorManagement.Models.DatabaseManagement
 {
     public class Vendor : EntityBase
     {

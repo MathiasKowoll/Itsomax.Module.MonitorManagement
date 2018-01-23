@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Itsomax.Module.MonitorManagement.ViewModels
+namespace Itsomax.Module.MonitorManagement.ViewModels.DatabaseManagement
 {
     public class SystemListViewModel
     {
