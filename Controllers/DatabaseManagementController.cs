@@ -1,6 +1,6 @@
 ﻿using Itsomax.Module.Core.Models;
-using Itsomax.Module.MonitorManagement.Interfaces;
-using Itsomax.Module.MonitorManagement.ViewModels.DatabaseManagement;
+using Itsomax.Module.MonitorCore.Interfaces;
+using Itsomax.Module.MonitorCore.ViewModels.DatabaseManagement;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -52,7 +52,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
                 var result = _monitor.CreateSystem(model, GetCurrentUserAsync().Result.UserName);
                 if (result)
                 {
-                    _toastNotification.AddToastMessage("System: " + model.Name + " created succesfully", "", ToastEnums.ToastType.Success, new ToastOption()
+					_toastNotification.AddSuccessToastMessage("System: " + model.Name + " created succesfully", new ToastrOptions()
                     {
                         PositionClass = ToastPositions.TopCenter
                     });
@@ -83,7 +83,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
             {
                 if (_monitor.EditSystem(model, GetCurrentUserAsync().Result.UserName))
                 {
-                    _toastNotification.AddToastMessage("System: " + model.Name + " edited succesfully", "", ToastEnums.ToastType.Success, new ToastOption()
+					_toastNotification.AddSuccessToastMessage("System: " + model.Name + " edited succesfully", new ToastrOptions()
                     {
                         PositionClass = ToastPositions.TopCenter
                     });
@@ -109,8 +109,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
                 return Json(null);
             }
             if (_monitor.DeleteSystem(Id, GetCurrentUserAsync().Result.UserName))
-            {
-                
+            {   
                 _logger.InformationLog("System" + model.Name + " deleted succesfully", "Delete System", string.Empty, GetCurrentUserAsync().Result.UserName);
                 return Json(true);
             }
