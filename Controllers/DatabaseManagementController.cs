@@ -11,9 +11,9 @@ namespace Itsomax.Module.MonitorManagement.Controllers
 {
     public class DatabaseManagementController : Controller
     {
-        public IMonitor _monitor;
+        private readonly IMonitor _monitor;
         private readonly UserManager<User> _userManager;
-        private IToastNotification _toastNotification;
+        private readonly IToastNotification _toastNotification;
         private readonly ILogginToDatabase _logger;
 
         public DatabaseManagementController(IMonitor monitor, UserManager<User> userManager, IToastNotification toastNotification,
@@ -68,10 +68,10 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         }
 
         [HttpGet]
-        [Route("/get/system/{Id}")]
-        public IActionResult EditSystemView(long Id)
+        [Route("/get/system/{id}")]
+        public IActionResult EditSystemView(long id)
         {
-            var model = _monitor.GetSystemForEdit(Id, GetCurrentUserAsync().Result.UserName);
+            var model = _monitor.GetSystemForEdit(id, GetCurrentUserAsync().Result.UserName);
             return View(model);
         }
 
@@ -100,15 +100,15 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         }
 
         [HttpDelete]
-        [Route("/delete/system/{Id}")]
-        public IActionResult DeleteSystemView(long Id)
+        [Route("/delete/system/{id}")]
+        public IActionResult DeleteSystemView(long id)
         {
-            var model = _monitor.GetSystem(Id);
+            var model = _monitor.GetSystem(id);
             if(model == null)
             {
                 return Json(null);
             }
-            if (_monitor.DeleteSystem(Id, GetCurrentUserAsync().Result.UserName))
+            if (_monitor.DeleteSystem(id, GetCurrentUserAsync().Result.UserName))
             {   
                 _logger.InformationLog("System" + model.Name + " deleted succesfully", "Delete System", string.Empty, GetCurrentUserAsync().Result.UserName);
                 return Json(true);
@@ -119,15 +119,15 @@ namespace Itsomax.Module.MonitorManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("/state/system/{Id}")]
-        public IActionResult StateSystemView(long Id)
+        [Route("/state/system/{id}")]
+        public IActionResult StateSystemView(long id)
         {
-            var model = _monitor.GetSystem(Id);
+            var model = _monitor.GetSystem(id);
             if (model == null)
             {
                 return Json(null);
             }
-            if (_monitor.DisableEnableSystem(Id, GetCurrentUserAsync().Result.UserName))
+            if (_monitor.DisableEnableSystem(id, GetCurrentUserAsync().Result.UserName))
             {
 
                 _logger.InformationLog("System" + model.Name + " deleted succesfully", "Delete System", string.Empty, GetCurrentUserAsync().Result.UserName);
