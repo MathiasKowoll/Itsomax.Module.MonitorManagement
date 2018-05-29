@@ -49,22 +49,27 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         {
             if(ModelState.IsValid)
             {
-                var result = _monitor.CreateSystem(model, GetCurrentUserAsync().Result.UserName);
-                if (result)
+                var result = _monitor.CreateSystem(model, GetCurrentUserAsync().Result.UserName).Result;
+                if (result.Succeeded)
                 {
 					_toastNotification.AddSuccessToastMessage("System: " + model.Name + " created succesfully", new ToastrOptions()
                     {
                         PositionClass = ToastPositions.TopCenter
                     });
-                    _logger.InformationLog("System" + model.Name + " created succesfully", "Create System", string.Empty, GetCurrentUserAsync().Result.UserName);
+                    //_logger.InformationLog("System" + model.Name + " created succesfully", "Create System", string.Empty, GetCurrentUserAsync().Result.UserName);
                     return View(nameof(SystemList));
                 }
                 else
                 {
+                    _toastNotification.AddErrorToastMessage("System: " + model.Name + " created unsuccesfully", new ToastrOptions()
+                    {
+                        PositionClass = ToastPositions.TopCenter
+                    });
+                    //_logger.ErrorLog(result.Errors,"System: {model.Name} created unsuccesfully",result.InnerErrors);
                     return View(nameof(CreateSystem), model);
                 }
             }
-            return View(nameof(CreateSystem), model);
+            return View(nameof(SystemList), model);
         }
 
         [HttpGet]

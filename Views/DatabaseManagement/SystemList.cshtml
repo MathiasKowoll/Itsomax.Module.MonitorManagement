@@ -78,7 +78,7 @@
                     {
                         text: 'Enable/Disable',
                         action: function (e, dt, node, config) {
-                            var rowData = dt.row({ selected: true }).data()
+                            var rowData = dt.row({ selected: true }).data();
 
                             if (rowData == null) {
                                 $.alert({
@@ -89,16 +89,14 @@
                             else
                             {
                                 var title = '';
-                                var content = ''
-                                if (rowData.isDeleted == true)
-                                {
-                                    titleConfirm = 'Enable database system'
-                                    contentConfirm = 'enable'
+                                var content = '';
+                                if (rowData.isDeleted == true) {
+                                    titleConfirm = 'Enable database system';
+                                    contentConfirm = 'enable';
                                 }
-                                else
-                                {
-                                    titleConfirm = 'Disable database system'
-                                    contentConfirm = 'disable'
+                                else {
+                                    titleConfirm = 'Disable database system';
+                                    contentConfirm = 'disable';
                                 }
                                 $.confirm({
                                     title: titleConfirm,
@@ -130,7 +128,7 @@
                             {
                                 text: 'Edit',
                                 action: function (e, dt, node, config) {
-                                    var rowData= dt.row( { selected: true } ).data()
+                                    var rowData = dt.row({ selected: true }).data();
                                     if(rowData == null)
                                     {
                                         $.alert({
@@ -138,9 +136,8 @@
                                             content: 'No database system has been selected, to continue please select a database system.'
                                         });
                                     }
-                                    else
-                                    {
-                                    window.location.href = '/get/system/'+rowData.id
+                                    else {
+                                        window.location.href = '/get/system/' + rowData.id;
                                     }
                                 },
                                 enabled: false
@@ -148,7 +145,7 @@
                             {
                                 text: 'Delete',
                                 action: function (e, dt, node, config) {
-                                    var rowData = dt.row({ selected: true }).data()
+                                    var rowData = dt.row({ selected: true }).data();
                                     if (rowData == null) {
                                         $.alert({
                                             title: 'No database system selected!',
