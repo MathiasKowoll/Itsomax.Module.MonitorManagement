@@ -18,7 +18,11 @@
                                 <label class="control-label col-sm-2 text-right" for="systemname" asp-for="Name" ></label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <div class="input-group-addon"><i class="ti-pencil-alt"></i></div>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="ti-pencil-alt"></i>
+                                            </span>
+                                        </div>
                                         <input class="form-control" id="systemname" asp-for="Name"/>
                                     </div>
                                 </div>
@@ -30,7 +34,11 @@
                                 <label class="control-label col-sm-2 text-right" asp-for="Description"></label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="ti-comment"></i>
+                                            </span>
+                                        </div>
                                         <textarea asp-for="Description" class="form-control" rows="5" cols="8"></textarea>
                                     </div>
                                 </div>
