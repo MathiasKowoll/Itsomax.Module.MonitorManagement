@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using NToastNotify;
 using Itsomax.Module.Core.Interfaces;
+using Itsomax.Module.MonitorCore.Data;
 
 namespace Itsomax.Module.MonitorManagement.Controllers
 {
@@ -13,16 +14,19 @@ namespace Itsomax.Module.MonitorManagement.Controllers
     {
         private readonly IMonitor _monitor;
         private readonly UserManager<User> _userManager;
+        private readonly IDatabaseSystemRepository _databaseSystem;
         private readonly IToastNotification _toastNotification;
         private readonly ILogginToDatabase _logger;
 
-        public DatabaseManagementController(IMonitor monitor, UserManager<User> userManager, IToastNotification toastNotification,
-            ILogginToDatabase logger)
+        public DatabaseManagementController(IMonitor monitor, UserManager<User> userManager,
+            IToastNotification toastNotification,
+            ILogginToDatabase logger, IDatabaseSystemRepository databaseSystem)
         {
             _monitor = monitor;
             _userManager = userManager;
             _toastNotification = toastNotification;
             _logger = logger;
+            _databaseSystem = databaseSystem;
         }
 
 
@@ -40,6 +44,8 @@ namespace Itsomax.Module.MonitorManagement.Controllers
 
         public IActionResult CreateSystem()
         {
+            ViewBag.VendorList = _monitor.VendorSelectList(-1);
+            ViewBag.ConfigurationTypeList = _monitor.ConfigurationTypeSelectList(-1);
             return View();
         }
 
@@ -47,29 +53,28 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateSystemPostView(CreateSystemViewModel model)
         {
-            if(ModelState.IsValid)
+            if (!ModelState.IsValid) return View(nameof(SystemList), model);
+            var result = _monitor.CreateSystem(model, GetCurrentUserAsync().Result.UserName).Result;
+            if (result.Succeeded)
             {
-                var result = _monitor.CreateSystem(model, GetCurrentUserAsync().Result.UserName).Result;
-                if (result.Succeeded)
+                _toastNotification.AddSuccessToastMessage(result.OkMessage, new ToastrOptions()
                 {
-					_toastNotification.AddSuccessToastMessage("System: " + model.Name + " created succesfully", new ToastrOptions()
-                    {
-                        PositionClass = ToastPositions.TopCenter
-                    });
-                    //_logger.InformationLog("System" + model.Name + " created succesfully", "Create System", string.Empty, GetCurrentUserAsync().Result.UserName);
-                    return View(nameof(SystemList));
-                }
-                else
-                {
-                    _toastNotification.AddErrorToastMessage("System: " + model.Name + " created unsuccesfully", new ToastrOptions()
-                    {
-                        PositionClass = ToastPositions.TopCenter
-                    });
-                    //_logger.ErrorLog(result.Errors,"System: {model.Name} created unsuccesfully",result.InnerErrors);
-                    return View(nameof(CreateSystem), model);
-                }
+                    PositionClass = ToastPositions.TopCenter
+                });
+                _logger.InformationLog(result.OkMessage,string.Empty,GetCurrentUserAsync().Result.UserName);
+                ViewBag.VendorList = _monitor.VendorSelectList(-1);
+                ViewBag.ConfigurationTypeList = _monitor.ConfigurationTypeSelectList(-1);
+                return View(nameof(SystemList));
             }
-            return View(nameof(SystemList), model);
+
+            _toastNotification.AddErrorToastMessage(result.Errors, new ToastrOptions()
+            {
+                PositionClass = ToastPositions.TopCenter
+            });
+            _logger.InformationLog(result.Errors, "Create Database System", result.InnerErrors, GetCurrentUserAsync().Result.UserName);
+            ViewBag.VendorList = _monitor.VendorSelectList(-1);
+            ViewBag.ConfigurationTypeList = _monitor.ConfigurationTypeSelectList(-1);
+            return View(nameof(CreateSystem), model);
         }
 
         [HttpGet]
@@ -82,52 +87,45 @@ namespace Itsomax.Module.MonitorManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditSystemViewPost(EditSystemViewModel model)
+        public async Task<IActionResult> EditSystemViewPost(EditSystemViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(nameof(SystemList));
+            var res = await _monitor.EditSystem(model, GetCurrentUserAsync().Result.UserName);
+            if (res.Succeeded)
             {
-                if (_monitor.EditSystem(model, GetCurrentUserAsync().Result.UserName))
+                _toastNotification.AddSuccessToastMessage(res.OkMessage, new ToastrOptions()
                 {
-					_toastNotification.AddSuccessToastMessage("System: " + model.Name + " edited succesfully", new ToastrOptions()
-                    {
-                        PositionClass = ToastPositions.TopCenter
-                    });
-                    _logger.InformationLog("System" + model.Name + " edited succesfully", "Edit System", string.Empty, GetCurrentUserAsync().Result.UserName);
-                    return View(nameof(SystemList));
-                }
-                else
-                {
-                    return View(nameof(EditSystemView), model);
-                }
-
+                    PositionClass = ToastPositions.TopCenter
+                });
+                return View(nameof(SystemList));
             }
-            return View(nameof(SystemList));
+            _toastNotification.AddErrorToastMessage(res.Errors, new ToastrOptions()
+            {
+                PositionClass = ToastPositions.TopCenter
+            });
+            return View(nameof(EditSystemView), model);
         }
 
         [HttpDelete]
         [Route("/delete/system/{id}")]
         public IActionResult DeleteSystemView(long id)
         {
-            var model = _monitor.GetSystem(id);
+            var model = _databaseSystem.GetById(id);
             if(model == null)
             {
                 return Json(null);
             }
-            if (_monitor.DeleteSystem(id, GetCurrentUserAsync().Result.UserName))
-            {   
-                _logger.InformationLog("System" + model.Name + " deleted succesfully", "Delete System", string.Empty, GetCurrentUserAsync().Result.UserName);
-                return Json(true);
-            }
-            else
-            {
-                return Json(false);
-            }
+
+            if (!_monitor.DeleteSystem(id, GetCurrentUserAsync().Result.UserName)) return Json(false);
+            _logger.InformationLog("System" + model.Name + " deleted succesfully", "Delete System", string.Empty, GetCurrentUserAsync().Result.UserName);
+            return Json(true);
+
         }
         [HttpDelete]
         [Route("/state/system/{id}")]
         public IActionResult StateSystemView(long id)
         {
-            var model = _monitor.GetSystem(id);
+            var model = _databaseSystem.GetById(id);
             if (model == null)
             {
                 return Json(null);
