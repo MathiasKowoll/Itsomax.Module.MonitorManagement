@@ -58,6 +58,18 @@
                                     <span asp-validation-for="Active"></span>
                                 </div>
                             </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right">Vendor</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control custom-select" asp-for="VendorId" asp-items="@(new SelectList(@ViewBag.VendorList, "Id", "Name","Selected"))"></select>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right">Configuration</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control custom-select" asp-for="ConfigTypeId" asp-items="@(new SelectList(@ViewBag.ConfigurationTypeList, "Id", "Name","Selected"))"></select>
+                                </div>
+                            </div>
                             <h3 class="box-title">Save System</h3>
                             <hr class="m-t-0 m-b-40">
                             <div class="form-group row">
