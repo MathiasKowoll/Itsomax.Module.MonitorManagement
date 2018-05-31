@@ -158,7 +158,7 @@
                                     }
                                     else
                                     {
-                                        if (rowData.isDeleted == false)
+                                        if (rowData.active == true)
                                         {
                                             toastr.error('', 'Database system must be disabled to be able to delete it', { positionClass: 'toast-top-center' });
                                         }

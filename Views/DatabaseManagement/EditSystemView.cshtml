@@ -10,19 +10,20 @@
                     <h2 class="m-b-0 text-themecolor">Create System</h2>
                 </div>
                 <div class="card-body">
-                    <form class="form-horizontal p-t-20 justify-content-center" asp-controller="DatabaseManagement" asp-action="EditSystemViewPost">
+                    <form autocomplete="off" class="form-horizontal p-t-20 justify-content-center" asp-controller="DatabaseManagement" asp-action="EditSystemViewPost">
                         <div class="form-body">
                             <h3 class="box-title">System Details</h3>
                             <hr class="m-t-0 m-b-40">
-                            <div class="form-group">
-                                <input asp-for="Id" type="hidden" />
-                            </div>
                             <div class="form-group row align-items-center">
-                                <label class="control-label col-sm-2 text-right" for="systemname" asp-for="Name"></label>
+                                <label class="control-label col-sm-2 text-right" for="systemname" asp-for="Name" ></label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <div class="input-group-addon"><i class="ti-pencil-alt"></i></div>
-                                        <input class="form-control" id="systemname" asp-for="Name" />
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="sysName">
+                                                <i class="ti-pencil-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" id="systemname" asp-for="Name"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -33,7 +34,11 @@
                                 <label class="control-label col-sm-2 text-right" asp-for="Description"></label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="ti-comment"></i>
+                                            </span>
+                                        </div>
                                         <textarea asp-for="Description" class="form-control" rows="5" cols="8"></textarea>
                                     </div>
                                 </div>
@@ -53,6 +58,19 @@
                                     <span asp-validation-for="Active"></span>
                                 </div>
                             </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right">Vendor</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control custom-select" asp-for="VendorId" asp-items="@(new SelectList(@ViewBag.VendorList, "Id", "Name","Selected"))"></select>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right">Configuration</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control custom-select" asp-for="ConfigTypeId" asp-items="@(new SelectList(@ViewBag.ConfigurationTypeList, "Id", "Name","Selected"))"></select>
+                                </div>
+                            </div>
+                            <input type="hidden" asp-for="Id"/>
                             <h3 class="box-title">Save System</h3>
                             <hr class="m-t-0 m-b-40">
                             <div class="form-group row">
