@@ -61,7 +61,6 @@ namespace Itsomax.Module.MonitorManagement.Controllers
                 {
                     PositionClass = ToastPositions.TopCenter
                 });
-                _logger.InformationLog(result.OkMessage,string.Empty,GetCurrentUserAsync().Result.UserName);
                 ViewBag.VendorList = _monitor.VendorSelectList(-1);
                 ViewBag.ConfigurationTypeList = _monitor.ConfigurationTypeSelectList(-1);
                 return View(nameof(SystemList));
@@ -71,7 +70,6 @@ namespace Itsomax.Module.MonitorManagement.Controllers
             {
                 PositionClass = ToastPositions.TopCenter
             });
-            _logger.InformationLog(result.Errors, "Create Database System", result.InnerErrors, GetCurrentUserAsync().Result.UserName);
             ViewBag.VendorList = _monitor.VendorSelectList(-1);
             ViewBag.ConfigurationTypeList = _monitor.ConfigurationTypeSelectList(-1);
             return View(nameof(CreateSystem), model);
