@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using NToastNotify;
 using Itsomax.Module.Core.Interfaces;
+using Itsomax.Module.MonitorCore.Data;
 
 namespace Itsomax.Module.MonitorManagement.Controllers
 {
@@ -15,14 +16,16 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IToastNotification _toastNotification;
         private readonly ILogginToDatabase _logger;
+        private readonly IDatabaseSystemRepository _databaseSystemRepository;
 
         public DatabaseManagementController(IMonitor monitor, UserManager<User> userManager, IToastNotification toastNotification,
-            ILogginToDatabase logger)
+            ILogginToDatabase logger,IDatabaseSystemRepository databaseSystemRepository)
         {
             _monitor = monitor;
             _userManager = userManager;
             _toastNotification = toastNotification;
             _logger = logger;
+            _databaseSystemRepository = databaseSystemRepository;
         }
 
 
@@ -86,7 +89,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_monitor.EditSystem(model, GetCurrentUserAsync().Result.UserName))
+                if (_monitor.EditSystem(model, GetCurrentUserAsync().Result.UserName).Result.Succeeded)
                 {
 					_toastNotification.AddSuccessToastMessage("System: " + model.Name + " edited succesfully", new ToastrOptions()
                     {
@@ -108,7 +111,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         [Route("/delete/system/{id}")]
         public IActionResult DeleteSystemView(long id)
         {
-            var model = _monitor.GetSystem(id);
+            var model = _databaseSystemRepository.GetById(id);
             if(model == null)
             {
                 return Json(null);
@@ -127,7 +130,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         [Route("/state/system/{id}")]
         public IActionResult StateSystemView(long id)
         {
-            var model = _monitor.GetSystem(id);
+            var model = _databaseSystemRepository.GetById(id);
             if (model == null)
             {
                 return Json(null);
