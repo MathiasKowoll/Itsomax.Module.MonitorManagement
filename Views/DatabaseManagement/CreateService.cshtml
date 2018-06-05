@@ -1,0 +1,166 @@
+﻿@using Itsomax.Module.MonitorCore.ViewModels.DatabaseManagement
+@model CreateServiceViewModel
+
+<div class="container-fluid">
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-outline-info">
+                <div class="card-header">
+                    <h2 class="m-b-0 text-themecolor">Create System</h2>
+                </div>
+                <div class="card-body">
+                    <form autocomplete="off" class="form-horizontal p-t-20 justify-content-center" asp-controller="DatabaseManagement" asp-action="CreateService">
+                        <div class="form-body">
+                            <h3 class="box-title">System Details</h3>
+                            <hr class="m-t-0 m-b-40">
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right" for="systemname" asp-for="Name" ></label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="sysName">
+                                                <i class="ti-pencil-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" id="systemname" asp-for="Name"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right" asp-for="Hostname" ></label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="ti-pencil-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" asp-for="Hostname"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span asp-validation-for="Hostname" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right" asp-for="Ip" ></label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="ti-pencil-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control"  asp-for="Ip"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span asp-validation-for="Ip" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right" asp-for="Named" ></label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="ti-pencil-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control"  asp-for="Named"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span asp-validation-for="Named" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right" asp-for="LoginName" ></label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="ti-pencil-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control"  asp-for="LoginName"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span asp-validation-for="LoginName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right" asp-for="LoginPassword" ></label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="ti-pencil-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control"  asp-for="LoginPassword"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span asp-validation-for="LoginPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right" asp-for="Description"></label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="ti-comment"></i>
+                                            </span>
+                                        </div>
+                                        <textarea asp-for="Description" class="form-control" rows="5" cols="8"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-sm-2 text-right" asp-for="Active" for="active"></label>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-info">
+                                        <input asp-for="Active" type="checkbox" id="active" />
+                                        <label for="active"></label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span asp-validation-for="Active"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="control-label col-sm-2 text-right">Vendor</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control custom-select" asp-for="DatabaseSystemId" asp-items="@(new SelectList(@ViewBag.DataBaseList, "Id", "Name","Selected"))"></select>
+                                </div>
+                            </div>
+                            <h3 class="box-title">Save System</h3>
+                            <hr class="m-t-0 m-b-40">
+                            <div class="form-group row">
+                                <div class="col-md-10 ml-md-auto">
+                                    <a asp-controller="DatabaseManagement" asp-action="SystemList" class="btn btn-info waves-effect waves-light">Cancel</a>
+                                    <button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-check"></i> Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+}

@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using NToastNotify;
 using Itsomax.Module.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Itsomax.Module.MonitorManagement.Controllers
 {
+    [Authorize(Policy = "ManageAuthentification")]
     public class DatabaseManagementController : Controller
     {
         private readonly IMonitor _monitor;
@@ -26,7 +28,8 @@ namespace Itsomax.Module.MonitorManagement.Controllers
 
         }
 
-
+        #region Database System
+        
         public IActionResult SystemList()
         {
             return View();
@@ -168,6 +171,51 @@ namespace Itsomax.Module.MonitorManagement.Controllers
                 return Json(false);
             }
         }
+        #endregion
+
+        #region Service
+
+        public IActionResult ServiceList()
+        {
+            return View();
+        }
+
+        [Route("/get/service/json")]
+        public JsonResult ServiceListJson()
+        {
+            return Json(_monitor.GetServicesList(GetCurrentUserAsync().Result.UserName));
+        }
+        
+        public IActionResult CreateService()
+        {
+            ViewBag.DataBaseList = _monitor.DatabaseSystemList(-1);
+            return View();
+        }
+
+        [HttpPost,ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateService(CreateServiceViewModel model)
+        {
+            var result = await _monitor.CreateService(model, GetCurrentUserAsync().Result.UserName);
+            if (result.Succeeded)
+            {
+                _toastNotification.AddSuccessToastMessage(result.OkMessage, new ToastrOptions()
+                {
+                    PositionClass = ToastPositions.TopCenter
+                });
+                return RedirectToAction("SystemList");
+            }
+
+            _toastNotification.AddErrorToastMessage(result.Errors, new ToastrOptions()
+            {
+                PositionClass = ToastPositions.TopCenter
+            });
+            ViewBag.DataBaseList = _monitor.DatabaseSystemList(-1);
+            return View(model);
+
+        }
+        
+
+        #endregion
 
 
 
@@ -210,5 +258,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         }
 
         #endregion
+
+        
     }
 }
