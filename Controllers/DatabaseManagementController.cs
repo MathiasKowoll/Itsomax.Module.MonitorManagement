@@ -218,8 +218,6 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         #endregion
 
 
-
-
         #region Helpers
 
         private void AddErrors(IdentityResult result)
