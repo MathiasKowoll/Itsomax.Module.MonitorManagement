@@ -61,13 +61,14 @@
                             <div class="form-group row align-items-center">
                                 <label class="control-label col-sm-2 text-right">Vendor</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control custom-select" asp-for="VendorId" asp-items="@(new SelectList(@ViewBag.VendorList, "Id", "Name","Selected"))"></select>
+                                    <select id="vendorList" class="form-control custom-select" asp-for="VendorId" asp-items="@(new SelectList(@ViewBag.VendorList, "VendorId", "VendorName"))"></select>
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="control-label col-sm-2 text-right">Configuration</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control custom-select" asp-for="ConfigTypeId" asp-items="@(new SelectList(@ViewBag.ConfigurationTypeList, "Id", "Name","Selected"))"></select>
+                                    <select id="ConfigTypeId" name="ConfigTypeId" class="form-control custom-select" asp-for="ConfigTypeId" 
+                                            asp-items="@(new SelectList(string.Empty, "ConfigId", "ConfigName"))"></select>
                                 </div>
                             </div>
                             <h3 class="box-title">Save System</h3>
@@ -88,5 +89,34 @@
 
 @section scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+<script type="text/javascript">
+    $(document).ready(function() {
+        var items = "<option value='0'>Select Configuration Type</option>";
+        $('#ConfigTypeId').html(items);
+    });
+</script>
+<script type="text/javascript">
+    $('#vendorList').change(function() {
+        var url = '@Url.Content("~/DatabaseManagement/GetConfigurationById/")';
+        var ddlSource = "#vendorList";
+        if ($(ddlSource).val() == 0) {
+            $('#ConfigTypeId').empty();
+            var items = "<option value='0'>Select Configuration Type</option>";
+            $('#ConfigTypeId').html(items);
+        } else {
+            $.getJSON(url,
+                { vendorId: $(ddlSource).val() },
+                function(data) {
+                    var items = '';
+                    $('#ConfigTypeId').empty();
+                    $.each(data, function(i, config) {
+                        items += "<option value='" + config.value + "'>" + config.text + "</option>";
+                    });
+                    $('#ConfigTypeId').html(items);
+                });
+        }
+        
+    });
+</script>
 
-}
+} 

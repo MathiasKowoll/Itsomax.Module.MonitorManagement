@@ -15,7 +15,7 @@
                             <th>Service Name</th>
                             <th>Hostname</th>
                             <th>Active</th>
-                            <th>Configuration</th>
+                            <th>Updated</th>
                         </tr>
                     </thead>
                 </table>
@@ -42,7 +42,7 @@
                     { "data": "id" },
                     { "data": "systemName" },
                     { "data": "name" },
-                    { "data": "Hostname"},
+                    { "data": "hostname"},
                     {
                         "data": "active",
                         "render": function (data, type, row, meta) {
@@ -94,7 +94,7 @@
                             {
                                 var title = '';
                                 var content = '';
-                                if (rowData.isDeleted == true) {
+                                if (rowData.active == true) {
                                     titleConfirm = 'Enable database service';
                                     contentConfirm = 'enable';
                                 }

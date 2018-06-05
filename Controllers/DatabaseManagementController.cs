@@ -1,4 +1,5 @@
-﻿using Itsomax.Module.Core.Models;
+﻿using System.Linq;
+using Itsomax.Module.Core.Models;
 using Itsomax.Module.MonitorCore.Interfaces;
 using Itsomax.Module.MonitorCore.ViewModels.DatabaseManagement;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using NToastNotify;
 using Itsomax.Module.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Itsomax.Module.MonitorManagement.Controllers
 {
@@ -44,8 +46,9 @@ namespace Itsomax.Module.MonitorManagement.Controllers
 
         public IActionResult CreateSystem()
         {
-            ViewBag.VendorList = _monitor.VendorSelectList(-1);
-            ViewBag.ConfigurationTypeList = _monitor.ConfigurationTypeSelectList(-1);
+            
+            ViewBag.VendorList = from v in  _monitor.VendorSelectList(-1)
+                select new {VendorId = v.Id, VendorName = v.Name};
             return View();
         }
 
@@ -68,8 +71,8 @@ namespace Itsomax.Module.MonitorManagement.Controllers
             {
                 PositionClass = ToastPositions.TopCenter
             });
-            ViewBag.VendorList = _monitor.VendorSelectList(-1);
-            ViewBag.ConfigurationTypeList = _monitor.ConfigurationTypeSelectList(-1);
+            ViewBag.VendorList = from v in  _monitor.VendorSelectList(-1)
+                select new {VendorId = v.Id, VendorName = v.Name};
             return View(nameof(CreateSystem), model);
         }
 
@@ -107,8 +110,11 @@ namespace Itsomax.Module.MonitorManagement.Controllers
                     
                 return RedirectToAction("SystemList");
             }
-            ViewBag.VendorList = _monitor.VendorSelectList(model.VendorId);
-            ViewBag.ConfigurationTypeList = _monitor.ConfigurationTypeSelectList(model.ConfigTypeId);
+            //ViewBag.VendorList = _monitor.VendorSelectList(model.VendorId);
+            ViewBag.ConfigList = from c in _monitor.GetConfigurationByVendor(model.VendorId)
+                select new {ConfigId = c.Id, ConfigName = c.Name};
+            ViewBag.VendorList = from v in  _monitor.VendorSelectList(model.VendorId)
+                select new {VendorId = v.Id, VendorName = v.Name};
             return View(model);
 
         }
@@ -136,7 +142,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
             });
             return RedirectToPage("/get/system/"+model.Id.ToString());
         }
-
+        
         [HttpDelete]
         [Route("/delete/system/{id}")]
         public IActionResult DeleteSystemView(long id)
@@ -154,22 +160,19 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         }
         [HttpDelete]
         [Route("/state/system/{id}")]
-        public IActionResult StateSystemView(long id)
+        public async Task<JsonResult> StateSystemView(long id)
         {
             var model = _monitor.GetDatabaseSystemById(id,GetCurrentUserAsync().Result.UserName);
             if (model == null)
             {
-                return Json(null);
-            }
-            if (_monitor.DisableEnableSystem(id, GetCurrentUserAsync().Result.UserName))
-            {
-                _logger.InformationLog("System" + model.Name + " deleted succesfully", "Delete System", string.Empty, GetCurrentUserAsync().Result.UserName);
-                return Json(true);
-            }
-            else
-            {
                 return Json(false);
             }
+            if (await _monitor.DisableEnableSystem(id, GetCurrentUserAsync().Result.UserName))
+            {
+                return Json(true);
+            }
+
+            return Json(false);
         }
         #endregion
 
@@ -212,6 +215,56 @@ namespace Itsomax.Module.MonitorManagement.Controllers
             ViewBag.DataBaseList = _monitor.DatabaseSystemList(-1);
             return View(model);
 
+        }
+        
+        //[Route("/get/config/by/vendor/{vendorId}")]
+        public JsonResult GetConfigurationById(long vendorId)
+        {
+            var list = from c in _monitor.GetConfigurationByVendor(vendorId)
+                select new
+                {
+                    ConfigId = c.Id,
+                    ConfigName = c.Name
+                };
+            return Json(new SelectList(list,"ConfigId","ConfigName"));
+        }
+
+        [Route("/get/service/{id}")]
+        public IActionResult EditService(long id)
+        {
+            
+            var serviceToEdit = _monitor.GetServiceToEdit(id,GetCurrentUserAsync().Result.UserName);
+            if (serviceToEdit == null)
+            {
+                _toastNotification.AddSuccessToastMessage("Service Not found", new ToastrOptions()
+                {
+                    PositionClass = ToastPositions.TopCenter
+                });
+                return RedirectToAction("ServiceList");
+            }
+            ViewBag.DataBaseList = _monitor.DatabaseSystemList(serviceToEdit.DatabaseSystemId);
+            return View(serviceToEdit);
+        }
+        
+        [HttpPost,ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditService(EditServiceViewModel model)
+        {
+            var result = await _monitor.EditService(model, GetCurrentUserAsync().Result.UserName);
+            if (result.Succeeded)
+            {
+                _toastNotification.AddSuccessToastMessage(result.OkMessage, new ToastrOptions()
+                {
+                    PositionClass = ToastPositions.TopCenter
+                });
+                return RedirectToAction("SystemList");
+            }
+
+            _toastNotification.AddErrorToastMessage(result.Errors, new ToastrOptions()
+            {
+                PositionClass = ToastPositions.TopCenter
+            });
+            ViewBag.DataBaseList = _monitor.DatabaseSystemList(model.DatabaseSystemId);
+            return RedirectToAction(nameof(EditService), model.Id);
         }
         
 
