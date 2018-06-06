@@ -154,7 +154,8 @@ namespace Itsomax.Module.MonitorManagement.Controllers
             }
 
             if (!_monitor.DeleteSystem(id, GetCurrentUserAsync().Result.UserName)) return Json(false);
-            _logger.InformationLog("System" + model.Name + " deleted succesfully", "Delete System", string.Empty, GetCurrentUserAsync().Result.UserName);
+            _logger.InformationLog("System" + model.Name + " deleted succesfully", "Delete System", string.Empty,
+                GetCurrentUserAsync().Result.UserName);
             return Json(true);
 
         }
