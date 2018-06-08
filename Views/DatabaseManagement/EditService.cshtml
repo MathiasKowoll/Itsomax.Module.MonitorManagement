@@ -10,7 +10,7 @@
                     <h2 class="m-b-0 text-themecolor">Create System</h2>
                 </div>
                 <div class="card-body">
-                    <form autocomplete="off" class="form-horizontal p-t-20 justify-content-center" asp-controller="DatabaseManagement" asp-action="EditService">
+                    <form autocomplete="off" class="form-horizontal p-t-20 justify-content-center" asp-controller="DatabaseManagement" asp-action="EditServicePost">
                         <div class="form-body">
                             <h3 class="box-title">System Details</h3>
                             <hr class="m-t-0 m-b-40">
@@ -103,7 +103,7 @@
                                                 <i class="ti-pencil-alt"></i>
                                             </span>
                                         </div>
-                                        <input class="form-control"  asp-for="LoginPassword"/>
+                                        <input class="form-control"  asp-for="LoginPassword" value=@ViewBag.Pass/>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">

@@ -243,12 +243,14 @@ namespace Itsomax.Module.MonitorManagement.Controllers
                 });
                 return RedirectToAction("ServiceList");
             }
+
+            ViewBag.Pass = serviceToEdit.LoginPassword;
             ViewBag.DataBaseList = _monitor.DatabaseSystemList(serviceToEdit.DatabaseSystemId);
             return View(serviceToEdit);
         }
         
         [HttpPost,ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditService(EditServiceViewModel model)
+        public async Task<IActionResult> EditServicePost(EditServiceViewModel model)
         {
             var result = await _monitor.EditService(model, GetCurrentUserAsync().Result.UserName);
             if (result.Succeeded)
@@ -257,7 +259,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
                 {
                     PositionClass = ToastPositions.TopCenter
                 });
-                return RedirectToAction("SystemList");
+                return RedirectToAction("ServiceList");
             }
 
             _toastNotification.AddErrorToastMessage(result.Errors, new ToastrOptions()
