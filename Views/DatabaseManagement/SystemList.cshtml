@@ -33,7 +33,7 @@
 <script>
         $(document).ready(function () {
             var table = $('#systemList').DataTable({
-                dom: 'Bfrtip',
+                dom: 'Bfrtlip',
                 ajax: {
                     url: '/get/all/systems/json/',
                     dataSrc: ''
@@ -63,7 +63,7 @@
                     {"data": "configurationType"}
                 ],
                 paging: true,
-                lengthChange: false,
+                lengthChange: true,
                 searching: true,
                 ordering: true,
                 info: true,

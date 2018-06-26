@@ -33,7 +33,7 @@
 <script>
         $(document).ready(function () {
             var table = $('#serviceList').DataTable({
-                dom: 'Bfrtip',
+                dom: 'Bfrtlip',
                 ajax: {
                     url: '/get/service/json/',
                     dataSrc: ''
@@ -63,7 +63,7 @@
                     {"data": "updatedOn"}
                 ],
                 paging: true,
-                lengthChange: false,
+                lengthChange: true,
                 searching: true,
                 ordering: true,
                 info: true,
