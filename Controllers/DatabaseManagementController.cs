@@ -218,7 +218,6 @@ namespace Itsomax.Module.MonitorManagement.Controllers
 
         }
         
-        //[Route("/get/config/by/vendor/{vendorId}")]
         public JsonResult GetConfigurationById(long vendorId)
         {
             var list = from c in _monitor.GetConfigurationByVendor(vendorId)
