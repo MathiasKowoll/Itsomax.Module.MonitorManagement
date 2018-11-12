@@ -49,6 +49,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
             
             ViewBag.VendorList = from v in  _monitor.VendorSelectList(-1)
                 select new {VendorId = v.Id, VendorName = v.Name};
+            ViewBag.EnvironmentList = _monitor.EnvironmentSelectList(-1);
             return View();
         }
 
@@ -73,6 +74,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
             });
             ViewBag.VendorList = from v in  _monitor.VendorSelectList(-1)
                 select new {VendorId = v.Id, VendorName = v.Name};
+            ViewBag.EnvironmentList = _monitor.EnvironmentSelectList(-1);
             return View(nameof(CreateSystem), model);
         }
 
@@ -115,6 +117,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
                 select new {ConfigId = c.Id, ConfigName = c.Name};
             ViewBag.VendorList = from v in  _monitor.VendorSelectList(model.VendorId)
                 select new {VendorId = v.Id, VendorName = v.Name};
+            ViewBag.EnvironmentList = _monitor.EnvironmentSelectList(model.EnvironmentId);
             return View(model);
 
         }
