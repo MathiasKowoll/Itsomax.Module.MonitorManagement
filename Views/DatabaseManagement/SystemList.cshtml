@@ -16,6 +16,7 @@
                             <th>Active</th>
                             <th>Vendor</th>
                             <th>Configuration</th>
+                            <th>Environment</th>
                         </tr>
                     </thead>
                 </table>
@@ -60,7 +61,8 @@
                         }
                     },
                     {"data": "vendorName"},
-                    {"data": "configurationType"}
+                    {"data": "configurationType"},
+                    {"data": "environmentName"}
                 ],
                 paging: true,
                 lengthChange: true,
@@ -94,7 +96,7 @@
                             {
                                 var title = '';
                                 var content = '';
-                                if (rowData.active == true) {
+                                if (rowData.active == false) {
                                     titleConfirm = 'Enable database system';
                                     contentConfirm = 'enable';
                                 }
@@ -193,6 +195,40 @@
                                 },
                                 enabled: false
 
+                            },
+                            {
+                                text: 'Manage Services',
+                                action: function (e, dt, node, config) {
+                                    var rowData = dt.row({ selected: true }).data();
+                                    if(rowData == null)
+                                    {
+                                        $.alert({
+                                            title: 'No database system selected!',
+                                            content: 'No database system has been selected, to continue please select a database system.'
+                                        });
+                                    }
+                                    else {
+                                        window.location.href = '/get/services/by/system/' + rowData.id;
+                                    }
+                                },
+                                enabled: false
+                            },
+                            {
+                                text: 'Add Service',
+                                action: function (e, dt, node, config) {
+                                    var rowData = dt.row({ selected: true }).data();
+                                    if(rowData == null)
+                                    {
+                                        $.alert({
+                                            title: 'No database system selected!',
+                                            content: 'No database system has been selected, to continue please select a database system.'
+                                        });
+                                    }
+                                    else {
+                                        window.location.href = '/add/services/to/system/' + rowData.id;
+                                    }
+                                },
+                                enabled: false
                             }
                         ]
                     });
@@ -201,12 +237,16 @@
                         table.button(0).enable(selectedRows == 1);
                         table.button(1).enable(selectedRows == 1);
                         table.button(2).enable(selectedRows == 1);
+                        table.button(3).enable(selectedRows == 1);
+                        table.button(4).enable(selectedRows == 1);
                     } );
                     table.on( 'deselect',function() {
                         //var unselectedRows = table.rows( {selected: false} ).count();
                         table.button(0).disable();
                         table.button(1).disable();
                         table.button(2).disable();
+                        table.button(3).disable();
+                        table.button(4).disable();
                     });
 
 

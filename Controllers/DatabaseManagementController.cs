@@ -181,16 +181,23 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         #endregion
 
         #region Service
-
-        public IActionResult ServiceList()
+        
+        [Route("/get/services/by/system/")]
+        [Route("/get/services/by/system/{id}")]
+        public IActionResult ServiceList(long? id)
         {
+            var system= _monitor.GetDatabaseSystemById(id ?? 0,GetCurrentUserAsync().Result.UserName);
+            ViewBag.SystemName = system != null ? system.Name : "All Systems";
+            
+            ViewBag.SystemId = id.ToString() ?? "";    
             return View();
         }
-
-        [Route("/get/service/json")]
-        public JsonResult ServiceListJson()
+        
+        [Route("/get/services/json/")]
+        [Route("/get/service/json/{id}")]
+        public JsonResult ServiceListJson(long? id)
         {
-            return Json(_monitor.GetServicesList(GetCurrentUserAsync().Result.UserName));
+            return Json(_monitor.GetServicesList(id,GetCurrentUserAsync().Result.UserName));
         }
         
         public IActionResult CreateService()

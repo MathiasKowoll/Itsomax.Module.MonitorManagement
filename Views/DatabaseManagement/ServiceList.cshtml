@@ -35,7 +35,7 @@
             var table = $('#serviceList').DataTable({
                 dom: 'Bfrtlip',
                 ajax: {
-                    url: '/get/service/json/',
+                    url: '/get/service/json/+@ViewBag.SystemId',
                     dataSrc: ''
                 },
                 "columns": [
