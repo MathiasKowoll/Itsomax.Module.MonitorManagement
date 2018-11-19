@@ -188,7 +188,6 @@ namespace Itsomax.Module.MonitorManagement.Controllers
         {
             var system= _monitor.GetDatabaseSystemById(id ?? 0,GetCurrentUserAsync().Result.UserName);
             ViewBag.SystemName = system != null ? system.Name : "All Systems";
-            
             ViewBag.SystemId = id.ToString() ?? "";    
             return View();
         }

@@ -3,7 +3,7 @@
     <div class="col-lg-12">
         <div class="card card-outline-info">
             <div class="card-header bg-theme">
-                <h2 class="m-b-0 text-white">Database Services</h2>
+                <h2 class="m-b-0 text-white">Services for @ViewBag.SystemName</h2>
             </div>
             <div class="card-body">
                 <div id="events"></div>
@@ -20,7 +20,7 @@
                     </thead>
                 </table>
                 <br />
-                <a asp-controller="DatabaseManagement" asp-action="CreateSystem" class="btn btn-info waves-effect waves-light">Create System</a>
+                <a asp-controller="DatabaseManagement" asp-action="CreateService" asp-route-id="daT@ViewBag.SystemId" class="btn btn-info waves-effect waves-light">Add Service</a>
             </div>
         </div>
     </div>
