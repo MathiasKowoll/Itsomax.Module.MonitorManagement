@@ -50,7 +50,7 @@ namespace Itsomax.Module.MonitorManagement.Controllers
             ViewBag.VendorList = from v in  _monitor.VendorSelectList(-1)
                 select new {VendorId = v.Id, VendorName = v.Name};
             ViewBag.EnvironmentList = _monitor.EnvironmentSelectList(-1);
-            return View();
+            return View(new CreateSystemViewModel());
         }
 
         [HttpPost]
