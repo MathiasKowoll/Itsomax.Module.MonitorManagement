@@ -6,9 +6,6 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETCore.App"/>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Itsomax.Module.MonitorCore\Itsomax.Module.MonitorCore.csproj" />
   </ItemGroup>
 </Project>
