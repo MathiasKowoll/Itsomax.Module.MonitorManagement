@@ -8,4 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Itsomax.Module.MonitorCore\Itsomax.Module.MonitorCore.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DatabaseAdministrationManagement\Index.cshtml" />
+  </ItemGroup>
 </Project>
