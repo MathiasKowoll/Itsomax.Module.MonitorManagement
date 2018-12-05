@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <OutputType>Library</OutputType>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Itsomax.Module.MonitorCore\Itsomax.Module.MonitorCore.csproj" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Itsomax.Module.MonitorCore\Itsomax.Module.MonitorCore.csproj" />
+    </ItemGroup>
 </Project>
