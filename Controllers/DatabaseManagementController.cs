@@ -1,14 +1,14 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
+using Itsomax.Module.Core.Interfaces;
 using Itsomax.Module.Core.Models;
 using Itsomax.Module.MonitorCore.Interfaces;
 using Itsomax.Module.MonitorCore.ViewModels.DatabaseManagement;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using NToastNotify;
-using Itsomax.Module.Core.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 
 namespace Itsomax.Module.MonitorManagement.Controllers
 {
