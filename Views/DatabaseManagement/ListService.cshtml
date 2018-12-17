@@ -11,16 +11,17 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>System Name</th>
                             <th>Service Name</th>
                             <th>Hostname</th>
                             <th>Active</th>
                             <th>Updated</th>
+                            <th>System Name</th>
                         </tr>
                     </thead>
                 </table>
                 <br />
-                <a asp-controller="DatabaseManagement" asp-action="CreateService" asp-route-id="daT@ViewBag.SystemId" class="btn btn-info waves-effect waves-light">Add Service</a>
+                <a asp-controller="DatabaseManagement" asp-action="CreateService" asp-route-id="@ViewBag.SystemId" class="btn btn-info waves-effect waves-light">Add Service</a>
+                
             </div>
         </div>
     </div>
@@ -40,7 +41,6 @@
                 },
                 "columns": [
                     { "data": "id" },
-                    { "data": "systemName" },
                     { "data": "name" },
                     { "data": "hostname"},
                     {
@@ -60,7 +60,8 @@
 
                         }
                     },
-                    {"data": "updatedOn"}
+                    {"data": "updatedOn"},
+                    { "data": "systemName" }
                 ],
                 paging: true,
                 lengthChange: true,
@@ -94,7 +95,7 @@
                             {
                                 var title = '';
                                 var content = '';
-                                if (rowData.active == true) {
+                                if (rowData.active == false) {
                                     titleConfirm = 'Enable database service';
                                     contentConfirm = 'enable';
                                 }
@@ -142,6 +143,23 @@
                                     }
                                     else {
                                         window.location.href = '/get/service/' + rowData.id;
+                                    }
+                                },
+                                enabled: false
+                            },
+                            {
+                                text: 'Manage Instances',
+                                action: function (e, dt, node, config) {
+                                    var rowData = dt.row({ selected: true }).data();
+                                    if(rowData == null)
+                                    {
+                                        $.alert({
+                                            title: 'No database service selected!',
+                                            content: 'No database service has been selected, to continue please select a database system.'
+                                        });
+                                    }
+                                    else {
+                                        window.location.href = '/get/instance/by/service/' + rowData.id;
                                     }
                                 },
                                 enabled: false

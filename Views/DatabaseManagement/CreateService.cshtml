@@ -121,12 +121,26 @@
                                     <span asp-validation-for="Active"></span>
                                 </div>
                             </div>
-                            <div class="form-group row align-items-center">
-                                <label class="control-label col-sm-2 text-right">Vendor</label>
-                                <div class="col-sm-4">
-                                    <select class="form-control custom-select" asp-for="DatabaseSystemId" asp-items="@(new SelectList(@ViewBag.DataBaseList, "Id", "Name","Selected"))"></select>
+                            @if (ViewBag.SystemId > 0)
+                            {
+                                <div class="form-group row align-items-center">
+                                    <label class="control-label col-sm-2 text-right">Vendor</label>
+                                    <div class="col-sm-4">
+                                        <select disabled="true" class="form-control custom-select" asp-for="DatabaseSystemId" asp-items="@(new SelectList(@ViewBag.DataBaseList, "Id", "Name","Selected"))"></select>
+                                    </div>
                                 </div>
-                            </div>
+                                <input type="hidden" class="form-control" asp-for="DatabaseSystemId"/>
+                            }
+                            else
+                            {
+                                <div class="form-group row align-items-center">
+                                    <label class="control-label col-sm-2 text-right">Vendor</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control custom-select" asp-for="DatabaseSystemId" asp-items="@(new SelectList(@ViewBag.DataBaseList, "Id", "Name","Selected"))"></select>
+                                    </div>
+                                </div>
+                            }
+                            
                             <h3 class="box-title">Save System</h3>
                             <hr class="m-t-0 m-b-40">
                             <div class="form-group row">

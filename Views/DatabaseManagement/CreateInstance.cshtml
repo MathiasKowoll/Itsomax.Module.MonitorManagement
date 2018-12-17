@@ -1,4 +1,4 @@
-﻿@model Itsomax.Module.MonitorCore.ViewModels.DatabaseManagement.EditServiceViewModel
+@model Itsomax.Module.MonitorCore.ViewModels.DatabaseManagement.CreateInstanceViewModel
 
 <div class="container-fluid">
     <br />
@@ -6,12 +6,12 @@
         <div class="col-lg-12">
             <div class="card card-outline-info">
                 <div class="card-header bg-theme">
-                    <h2 class="m-b-0 text-white">Create Service</h2>
+                    <h2 class="m-b-0 text-white">Create Instance</h2>
                 </div>
                 <div class="card-body">
-                    <form autocomplete="off" class="form-horizontal p-t-20 justify-content-center" asp-controller="DatabaseManagement" asp-action="EditServicePost">
+                    <form autocomplete="off" class="form-horizontal p-t-20 justify-content-center" asp-controller="DatabaseManagement" asp-action="CreateInstance">
                         <div class="form-body">
-                            <h3 class="box-title">Service Details</h3>
+                            <h3 class="box-title">Instance Details</h3>
                             <hr class="m-t-0 m-b-40">
                             <div class="form-group row align-items-center">
                                 <label class="control-label col-sm-2 text-right" for="systemname" asp-for="Name" ></label>
@@ -102,7 +102,7 @@
                                                 <i class="ti-pencil-alt"></i>
                                             </span>
                                         </div>
-                                        <input class="form-control"  asp-for="LoginPassword" value=@ViewBag.Pass/>
+                                        <input class="form-control"  asp-for="LoginPassword"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -121,18 +121,31 @@
                                     <span asp-validation-for="Active"></span>
                                 </div>
                             </div>
-                            <div class="form-group row align-items-center">
-                                <label class="control-label col-sm-2 text-right">Vendor</label>
-                                <div class="col-sm-4">
-                                    <select class="form-control custom-select" asp-for="DatabaseSystemId" asp-items="@(new SelectList(@ViewBag.DataBaseList, "Id", "Name","Selected"))"></select>
+                            @if (ViewBag.ServiceId > 0)
+                            {
+                                <div class="form-group row align-items-center">
+                                    <label class="control-label col-sm-2 text-right">Vendor</label>
+                                    <div class="col-sm-4">
+                                        <select disabled="true" class="form-control custom-select" asp-for="ServiceId" asp-items="@(new SelectList(@ViewBag.ServiceList, "Id", "Name","Selected"))"></select>
+                                    </div>
                                 </div>
-                            </div>
-                            <input type="hidden" asp-for="Id"/>
-                            <h3 class="box-title">Save Service</h3>
+                                <input type="hidden" class="form-control" asp-for="ServiceId"/>
+                            }
+                            else
+                            {
+                                <div class="form-group row align-items-center">
+                                    <label class="control-label col-sm-2 text-right">Vendor</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control custom-select" asp-for="ServiceId" asp-items="@(new SelectList(@ViewBag.ServiceList, "Id", "Name","Selected"))"></select>
+                                    </div>
+                                </div>
+                            }
+                            
+                            <h3 class="box-title">Save System</h3>
                             <hr class="m-t-0 m-b-40">
                             <div class="form-group row">
                                 <div class="col-md-10 ml-md-auto">
-                                    <a asp-controller="DatabaseManagement" asp-action="SystemList" class="btn btn-info waves-effect waves-light">Cancel</a>
+                                    <a href="/get/instance/by/service/@ViewBag.ServiceId" class="btn btn-info waves-effect waves-light">Cancel</a>
                                     <button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-check"></i> Save</button>
                                 </div>
                             </div>
@@ -146,6 +159,5 @@
 
 @section scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-
 
 }

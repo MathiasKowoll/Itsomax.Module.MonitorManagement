@@ -6,4 +6,9 @@
     <ItemGroup>
         <ProjectReference Include="..\Itsomax.Module.MonitorCore\Itsomax.Module.MonitorCore.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="Views\DatabaseManagement\CreateInstance.cshtml" />
+      <Content Include="Views\DatabaseManagement\EditInstance.cshtml" />
+      <Content Include="Views\DatabaseManagement\ListInstance.cshtml" />
+    </ItemGroup>
 </Project>
